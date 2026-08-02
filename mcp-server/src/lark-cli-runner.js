@@ -1,8 +1,17 @@
 import { spawn } from "node:child_process";
-import { resolve } from "node:path";
+import { extname, resolve } from "node:path";
 
 const DEFAULT_TIMEOUT_MS = 60_000;
 const DEFAULT_MAX_OUTPUT_BYTES = 10 * 1024 * 1024;
+const NODE_SCRIPT_EXTENSIONS = new Set([".cjs", ".js", ".mjs"]);
+
+function getSpawnSpec(binary, prefixArgs, args) {
+  const commandArgs = [...prefixArgs, ...args];
+  if (process.platform === "win32" && NODE_SCRIPT_EXTENSIONS.has(extname(binary).toLowerCase())) {
+    return { command: process.execPath, args: [binary, ...commandArgs] };
+  }
+  return { command: binary, args: commandArgs };
+}
 
 function parseJson(text) {
   if (!text.trim()) return undefined;
@@ -24,7 +33,8 @@ export function createLarkCliRunner({
     cwd,
     async run(args) {
       return new Promise((resolveResult) => {
-        const proc = spawn(binary, [...prefixArgs, ...args], {
+        const { command, args: commandArgs } = getSpawnSpec(binary, prefixArgs, args);
+        const proc = spawn(command, commandArgs, {
           cwd,
           shell: false,
           stdio: ["ignore", "pipe", "pipe"],
