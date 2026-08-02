@@ -1,0 +1,38 @@
+[
+  {
+    "id": "pure-text-long",
+    "title": "纯文本长文",
+    "blocks": ["h1", "p", "p", "p", "h2", "p"],
+    "media": [],
+    "special_blocks": [],
+    "write_result": "success",
+    "expected": ["copy-first", "full-ledger", "sectional-updates", "re-read"]
+  },
+  {
+    "id": "complex-structure",
+    "title": "复杂层级、列表与引用",
+    "blocks": ["h1", "h2", "ul", "table", "blockquote", "p"],
+    "media": [],
+    "special_blocks": ["table", "blockquote", "citation"],
+    "write_result": "success",
+    "expected": ["copy-first", "preserve-special", "block-operations", "re-read"]
+  },
+  {
+    "id": "existing-media",
+    "title": "已有图片和附件",
+    "blocks": ["h1", "p", "img", "source", "whiteboard", "p"],
+    "media": ["img", "source", "whiteboard"],
+    "special_blocks": ["img", "source", "whiteboard"],
+    "write_result": "success",
+    "expected": ["copy-first", "media-ledger", "preserve-special", "anchored-media-or-degrade", "re-read"]
+  },
+  {
+    "id": "partial-update-recovery",
+    "title": "局部更新部分成功",
+    "blocks": ["h1", "p", "p"],
+    "media": [],
+    "special_blocks": [],
+    "write_result": "partial_success",
+    "expected": ["copy-first", "full-ledger", "stop", "re-read", "diff-ledger", "explicit-recovery"]
+  }
+]

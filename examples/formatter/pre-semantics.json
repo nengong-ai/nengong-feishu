@@ -1,0 +1,109 @@
+[
+  {
+    "id": "real-code",
+    "document_profile": "code_centric",
+    "semantic": "code",
+    "mode": "basic",
+    "language_is_explicit": true,
+    "caption": "示例代码",
+    "expected": ["preserve-body", "set-lang-if-explicit", "no-visualization"]
+  },
+  {
+    "id": "terminal-output",
+    "document_profile": "code_centric",
+    "semantic": "literal",
+    "mode": "presentation",
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["preserve-body", "do-not-guess-lang", "no-visualization"]
+  },
+  {
+    "id": "ascii-wireframe-basic",
+    "document_profile": "non_code",
+    "semantic": "layout_wireframe",
+    "mode": "basic",
+    "is_semantically_mappable": true,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["do-not-guess-lang", "transcode-to-native-structure", "verify-semantic-projection"]
+  },
+  {
+    "id": "ascii-wireframe-presentation",
+    "document_profile": "non_code",
+    "semantic": "layout_wireframe",
+    "mode": "presentation",
+    "is_semantically_mappable": true,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["do-not-guess-lang", "transcode-to-native-structure", "verify-semantic-projection", "add-second-expression-if-valuable"]
+  },
+  {
+    "id": "ecommerce-canvas-wireframe-basic",
+    "document_profile": "non_code",
+    "semantic": "canvas_wireframe",
+    "mode": "basic",
+    "is_semantically_mappable": true,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["do-not-guess-lang", "transcode-to-native-structure", "normalize-canvas-to-layout-spec-table", "verify-semantic-projection"]
+  },
+  {
+    "id": "ascii-wireframe-unparseable",
+    "document_profile": "non_code",
+    "semantic": "layout_wireframe",
+    "mode": "basic",
+    "is_semantically_mappable": false,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["preserve-body", "do-not-guess-lang", "clear-empty-caption-if-supported", "report-mobile-risk"]
+  },
+  {
+    "id": "unknown-pre",
+    "document_profile": "mixed",
+    "semantic": "unknown",
+    "mode": "presentation",
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["preserve-body", "do-not-guess-lang", "report-unknown", "no-visualization"]
+  },
+  {
+    "id": "nontechnical-real-code",
+    "document_profile": "non_code",
+    "semantic": "code",
+    "mode": "basic",
+    "language_is_explicit": true,
+    "caption": "SQL 示例",
+    "expected": ["preserve-body", "set-lang-if-explicit", "no-visualization"]
+  },
+  {
+    "id": "markdown-import-artifact",
+    "document_profile": "non_code",
+    "semantic": "markdown_artifact",
+    "mode": "basic",
+    "is_semantically_mappable": true,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["do-not-guess-lang", "transcode-to-native-structure", "verify-semantic-projection"]
+  },
+  {
+    "id": "code-centric-ambiguous-ascii",
+    "document_profile": "code_centric",
+    "semantic": "layout_wireframe",
+    "mode": "basic",
+    "is_semantically_mappable": true,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["preserve-body", "do-not-guess-lang", "report-context-conflict"]
+  },
+  {
+    "id": "code-centric-explicit-import-artifact",
+    "document_profile": "code_centric",
+    "semantic": "markdown_artifact",
+    "mode": "basic",
+    "is_semantically_mappable": true,
+    "source_artifact_is_explicit": true,
+    "language_is_explicit": false,
+    "caption": "",
+    "expected": ["do-not-guess-lang", "transcode-to-native-structure", "verify-semantic-projection"]
+  }
+]
