@@ -21,18 +21,22 @@ AI Agent → 本地 server.js → 飞书官方 lark-cli → 飞书 API
 
 | Logo | Agent / 客户端 | 如何连接 | 配置形态 | 状态 |
 | :---: | --- | --- | --- | :---: |
-| 🟣 | Codex Desktop | 生成后合并到 `~/.codex/config.toml` | TOML | ✅ macOS 实机验证 |
-| <img src="https://cdn.simpleicons.org/claude" alt="Claude" width="24" /> | Claude Code | `claude mcp add --scope local`，或导入生成片段 | CLI / JSON | ✅ macOS 实机验证 |
-| <img src="https://cdn.simpleicons.org/claude" alt="Claude" width="24" /> | Claude Desktop | 合并到 `claude_desktop_config.json` | JSON | ✅ macOS 实机验证 |
-| **Z** | ZCode | 合并到 `mcp.servers` | 嵌套 JSON | ✅ macOS 实机验证 |
-| <img src="https://cdn.simpleicons.org/kimi" alt="Kimi" width="24" /> | Kimi Desktop / Kimi Code CLI | 合并到桌面端持久配置或项目级 `.kimi-code/mcp.json` | 嵌套 JSON / JSON | ✅ macOS 实机验证 |
-| **Q** | Qoder CN Desktop / QoderWork CN / Qoder CLI CN | 桌面端 GUI 导入；CLI 用官方注册命令 | JSON / CLI | ✅ macOS 实机验证 |
-| <img src="https://cdn.simpleicons.org/trae" alt="Trae" width="24" /> | Trae IDE / TRAE SOLO CN | 在 MCP 设置中导入生成的配置 | JSON | ✅ macOS 实机验证 |
-| **W** | WorkBuddy Desktop | 在“插件/连接器 → MCP 服务器”中导入并启用 | JSON | ✅ macOS 实机验证 |
-| **CB** | CodeBuddy CLI | `codebuddy mcp add --scope user` | CLI | ✅ macOS 实机验证 |
-| <img src="https://cdn.simpleicons.org/opencode" alt="OpenCode" width="24" /> | OpenCode Desktop | 合并到 `~/.config/opencode/opencode.json` | JSON | ✅ macOS 实机验证 |
-| <img src="https://cdn.simpleicons.org/hermes" alt="Hermes" width="24" /> | Hermes Agent | 合并到 `~/.hermes/config.yaml`，或使用 `hermes mcp add` | YAML / CLI | ✅ macOS 实机验证 |
+| <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/openai.svg" alt="OpenAI / Codex" width="24" /> | Codex Desktop | 生成后合并到 `~/.codex/config.toml` | TOML | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/claude" alt="Claude" width="24" /> | Claude Code | `claude mcp add --scope local`，或导入生成片段 | CLI / JSON | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/claude" alt="Claude" width="24" /> | Claude Desktop | 合并到 `claude_desktop_config.json` | JSON | ✅ 已验证 |
+| <img src="https://zcode.z.ai/favicon-48x48.png?v=20260707-transparent" alt="ZCode" width="24" /> | ZCode | 合并到 `mcp.servers` | 嵌套 JSON | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/kimi" alt="Kimi" width="24" /> | Kimi Desktop / Kimi Code CLI | 合并到桌面端持久配置或项目级 `.kimi-code/mcp.json` | 嵌套 JSON / JSON | ✅ 已验证 |
+| <img src="https://img.alicdn.com/imgextra/i3/O1CN01KliT1u1jEq947NlKH_!!6000000004517-55-tps-180-180.svg" alt="Qoder" width="24" /> | Qoder CN Desktop / QoderWork CN / Qoder CLI CN | 桌面端 GUI 导入；CLI 用官方注册命令 | JSON / CLI | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/trae" alt="Trae" width="24" /> | Trae IDE / TRAE SOLO CN | 在 MCP 设置中导入生成的配置 | JSON | ✅ 已验证 |
+| <img src="https://codebuddy-1328495429.cos.accelerate.myqcloud.com/web/workbuddy/f964788327b7a199385c77f5a9ab70ff5ad49002/assets/logo.svg" alt="WorkBuddy" width="24" /> | WorkBuddy Desktop | 在“插件/连接器 → MCP 服务器”中导入并启用 | JSON | ✅ 已验证 |
+| <img src="https://codebuddy-1328495429.cos.accelerate.myqcloud.com/web/ide/logo.svg" alt="CodeBuddy" width="24" /> | CodeBuddy CLI | `codebuddy mcp add --scope user` | CLI | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/opencode" alt="OpenCode" width="24" /> | OpenCode Desktop | 合并到 `~/.config/opencode/opencode.json` | JSON | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/hermes" alt="Hermes" width="24" /> | Hermes Agent | 合并到 `~/.hermes/config.yaml`，或使用 `hermes mcp add` | YAML / CLI | ✅ 已验证 |
 | 🧩 | 其他标准 MCP 客户端 | 生成通用 `mcpServers` JSON 后按客户端说明导入 | JSON | 🧩 可接入，未逐一实机认证 |
+
+首页的“已验证”表示该客户端加载面至少完成过一次真实连接回归；具体版本、操作系统、配置路径和边界见[客户端支持矩阵](docs/mcp-client-support.md)。MCP 协议本身是跨平台的，但本地可执行文件路径、GUI 导入入口和权限行为仍可能随系统或客户端版本变化。
+
+Logo 仅用于识别客户端，不表示官方合作或背书；图标来自产品公开资源或公开品牌图标库。
 
 生成对应客户端的配置片段：
 
