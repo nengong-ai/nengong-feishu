@@ -31,7 +31,7 @@ AI Agent → 本地 server.js → 飞书官方 lark-cli → 飞书 API
 | <img src="https://codebuddy-1328495429.cos.accelerate.myqcloud.com/web/workbuddy/f964788327b7a199385c77f5a9ab70ff5ad49002/assets/logo.svg" alt="WorkBuddy" width="24" /> | WorkBuddy Desktop | 在“插件/连接器 → MCP 服务器”中导入并启用 | JSON | ✅ 已验证 |
 | <img src="https://codebuddy-1328495429.cos.accelerate.myqcloud.com/web/ide/logo.svg" alt="CodeBuddy" width="24" /> | CodeBuddy CLI | `codebuddy mcp add --scope user` | CLI | ✅ 已验证 |
 | <img src="https://cdn.simpleicons.org/opencode" alt="OpenCode" width="24" /> | OpenCode Desktop | 合并到 `~/.config/opencode/opencode.json` | JSON | ✅ 已验证 |
-| <img src="https://cdn.simpleicons.org/hermes" alt="Hermes" width="24" /> | Hermes Agent | 合并到 `~/.hermes/config.yaml`，或使用 `hermes mcp add` | YAML / CLI | ✅ 已验证 |
+| <img src="https://cdn.jsdelivr.net/gh/NousResearch/hermes-agent@main/website/static/img/apple-touch-icon.png" alt="Hermes Agent" width="24" /> | Hermes Agent | 合并到 `~/.hermes/config.yaml`，或使用 `hermes mcp add` | YAML / CLI | ✅ 已验证 |
 | 🧩 | 其他标准 MCP 客户端 | 生成通用 `mcpServers` JSON 后按客户端说明导入 | JSON | 🧩 可接入，未逐一实机认证 |
 
 首页的“已验证”表示该客户端加载面至少完成过一次真实连接回归；具体版本、操作系统、配置路径和边界见[客户端支持矩阵](docs/mcp-client-support.md)。MCP 协议本身是跨平台的，但本地可执行文件路径、GUI 导入入口和权限行为仍可能随系统或客户端版本变化。
