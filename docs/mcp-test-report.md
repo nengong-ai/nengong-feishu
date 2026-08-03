@@ -134,9 +134,9 @@ CodeBuddy CLI `2.132.0` 与 WorkBuddy Desktop 是独立的 MCP 加载面。本�
 
 `feishu_setup({verify_auth:true})` 返回 CLI `1.0.81`、`stage=ready`、`ready=true`、`identity=user`；随后 `feishu_doc_read(detail=with-ids, doc_format=xml, scope=full)` 回读专用测试文档，标题、PNG 图片块和 caption 三项全部命中。测试全程只读，没有发起飞书授权、调用旧 `lark-mcp` 或执行文档写入。由此 CodeBuddy CLI `2.132.0` 的当前 macOS stdio 链路完成独立实机验证。
 
-## TRAE SOLO CN 接入诊断
+## TRAE Work CN（原 TRAE SOLO CN）接入诊断
 
-TRAE SOLO CN `3.3.83` 首次把标准配置写入旧 Trae IDE 使用的 `~/.trae-cn/mcp.json`。MCP 独立握手成功，但重启 SOLO 后当前会话仍只有内置 `integrated_code_mode`，没有加载 `nengong_feishu`。
+TRAE Work CN 的历史客户端（`TRAE SOLO CN 3.3.83`）首次把标准配置写入旧 Trae IDE 使用的 `~/.trae-cn/mcp.json`。MCP 独立握手成功，但重启 TRAE Work 后当前会话仍只有内置 `integrated_code_mode`，没有加载 `nengong_feishu`。TRAE 官方后来将 TRAE SOLO 更名为 TRAE Work；本节保留旧版本名称，便于复现当时的配置路径和故障。
 
 本机与当前客户端资料核对确认，SOLO 和 Trae IDE 的 MCP 配置相互独立。macOS 的 SOLO 全局配置应位于 `~/Library/Application Support/TRAE SOLO CN/User/mcp.json`，项目级配置应位于项目根目录 `.trae/mcp.json`。本次已在正确的 SOLO 全局位置创建只含 `nengong_feishu` 的无密钥配置，并固定 `LARK_CLI` 为用户已授权的 `1.0.81`。
 
@@ -144,7 +144,7 @@ TRAE SOLO CN `3.3.83` 首次把标准配置写入旧 Trae IDE 使用的 `~/.trae
 
 新建本地 CODE 模式会话后，模型侧成功加载 `mcp_nengong_feishu` 的工具描述，实际调用 `feishu_setup({verify_auth:true})` 返回 CLI `1.0.81`、`stage=ready`、`ready=true`、`identity=user`。随后通过 `feishu_doc_read` 回读专用测试文档，确认预期标题、PNG 图片块和 caption 全部存在。
 
-由此 TRAE SOLO CN `3.3.83` 完成实机只读复验。测试没有调用旧 `lark-mcp`，没有发起授权，也没有执行任何文档写入；公开报告不保存测试文档 URL、block ID 或资源 token。Trae IDE 是独立客户端，另有单独记录。
+由此 TRAE Work CN 的历史客户端（`TRAE SOLO CN 3.3.83`）完成实机只读复验。测试没有调用旧 `lark-mcp`，没有发起授权，也没有执行任何文档写入；公开报告不保存测试文档 URL、block ID 或资源 token。Trae IDE 是独立客户端，另有单独记录。
 
 ## Trae IDE 实机连接
 

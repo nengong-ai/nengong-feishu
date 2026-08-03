@@ -19,15 +19,21 @@ AI Agent → 本地 server.js → 飞书官方 lark-cli → 飞书 API
 
 第一次使用需要安装官方 CLI、完成一次飞书授权，再把生成的配置片段导入客户端。仓库提供配置生成器，但不会覆盖你已有的 MCP 配置，也不会把密钥写进配置文件。
 
+下表按“独立的 MCP 加载面”列行，而不是按品牌列行。同一品牌的桌面端、CLI、IDE 或工作台即使使用同一种协议，也可能有不同的配置文件、启动参数和会话工具集，因此会重复显示同一个 logo。表中每一行都需要独立接入；一个入口显示 Connected，不代表同品牌的其他入口也已加载。
+
 | Logo | Agent / 客户端 | 如何连接 | 配置形态 | 状态 |
 | :---: | --- | --- | --- | :---: |
 | <img src="https://cdn.jsdelivr.net/gh/homarr-labs/dashboard-icons/svg/openai.svg" alt="OpenAI / Codex" width="24" /> | Codex Desktop | 生成后合并到 `~/.codex/config.toml` | TOML | ✅ 已验证 |
 | <img src="https://cdn.simpleicons.org/claude" alt="Claude" width="24" /> | Claude Code | `claude mcp add --scope local`，或导入生成片段 | CLI / JSON | ✅ 已验证 |
 | <img src="https://cdn.simpleicons.org/claude" alt="Claude" width="24" /> | Claude Desktop | 合并到 `claude_desktop_config.json` | JSON | ✅ 已验证 |
 | <img src="https://zcode.z.ai/favicon-48x48.png?v=20260707-transparent" alt="ZCode" width="24" /> | ZCode | 合并到 `mcp.servers` | 嵌套 JSON | ✅ 已验证 |
-| <img src="https://cdn.simpleicons.org/kimi" alt="Kimi" width="24" /> | Kimi Desktop / Kimi Code CLI | 合并到桌面端持久配置或项目级 `.kimi-code/mcp.json` | 嵌套 JSON / JSON | ✅ 已验证 |
-| <img src="https://img.alicdn.com/imgextra/i3/O1CN01KliT1u1jEq947NlKH_!!6000000004517-55-tps-180-180.svg" alt="Qoder" width="24" /> | Qoder CN Desktop / QoderWork CN / Qoder CLI CN | 桌面端 GUI 导入；CLI 用官方注册命令 | JSON / CLI | ✅ 已验证 |
-| <img src="https://cdn.simpleicons.org/trae" alt="Trae" width="24" /> | Trae IDE / TRAE SOLO CN | 在 MCP 设置中导入生成的配置 | JSON | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/kimi" alt="Kimi" width="24" /> | Kimi Desktop | 合并到桌面端持久配置的 `mcp.servers` | 嵌套 JSON | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/kimi" alt="Kimi" width="24" /> | Kimi Code CLI | 导入用户级或项目级 `.kimi-code/mcp.json` | JSON | ✅ 已验证 |
+| <img src="https://img.alicdn.com/imgextra/i3/O1CN01KliT1u1jEq947NlKH_!!6000000004517-55-tps-180-180.svg" alt="Qoder" width="24" /> | Qoder CN Desktop | 桌面端 GUI 导入 | JSON | ✅ 已验证 |
+| <img src="https://img.alicdn.com/imgextra/i3/O1CN01KliT1u1jEq947NlKH_!!6000000004517-55-tps-180-180.svg" alt="Qoder" width="24" /> | QoderWork CN | `Settings → Connectors & MCP` 导入并启用 | JSON | ✅ 已验证 |
+| <img src="https://img.alicdn.com/imgextra/i3/O1CN01KliT1u1jEq947NlKH_!!6000000004517-55-tps-180-180.svg" alt="Qoder" width="24" /> | Qoder CLI CN | `qoderclicn mcp add --scope local` | CLI | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/trae" alt="Trae" width="24" /> | Trae IDE | Agent 面板的 MCP 设置或项目级 `.trae/mcp.json` | JSON | ✅ 已验证 |
+| <img src="https://cdn.simpleicons.org/trae" alt="Trae" width="24" /> | TRAE Work CN（原 TRAE SOLO CN） | 在 TRAE Work 的 MCP 设置中导入生成的配置 | JSON | ✅ 已验证（原 SOLO） |
 | <img src="https://codebuddy-1328495429.cos.accelerate.myqcloud.com/web/workbuddy/f964788327b7a199385c77f5a9ab70ff5ad49002/assets/logo.svg" alt="WorkBuddy" width="24" /> | WorkBuddy Desktop | 在“插件/连接器 → MCP 服务器”中导入并启用 | JSON | ✅ 已验证 |
 | <img src="https://codebuddy-1328495429.cos.accelerate.myqcloud.com/web/ide/logo.svg" alt="CodeBuddy" width="24" /> | CodeBuddy CLI | `codebuddy mcp add --scope user` | CLI | ✅ 已验证 |
 | <img src="https://cdn.simpleicons.org/opencode" alt="OpenCode" width="24" /> | OpenCode Desktop | 合并到 `~/.config/opencode/opencode.json` | JSON | ✅ 已验证 |
@@ -37,6 +43,8 @@ AI Agent → 本地 server.js → 飞书官方 lark-cli → 飞书 API
 首页的“已验证”表示该客户端加载面至少完成过一次真实连接回归；具体版本、操作系统、配置路径和边界见[客户端支持矩阵](docs/mcp-client-support.md)。MCP 协议本身是跨平台的，但本地可执行文件路径、GUI 导入入口和权限行为仍可能随系统或客户端版本变化。
 
 Logo 仅用于识别客户端，不表示官方合作或背书；图标来自产品公开资源或公开品牌图标库。
+
+`TRAE Work CN` 是 TRAE 官方将独立产品 `TRAE SOLO` 更名后的现行名称；仓库中的实机记录对应更名前的 `TRAE SOLO CN 3.3.83`，新版本仍应单独回归验证。参见 [TRAE 官方更名说明](https://www.trae.ai/blog/trae_work_0609)。
 
 生成对应客户端的配置片段：
 

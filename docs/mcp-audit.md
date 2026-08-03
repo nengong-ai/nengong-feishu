@@ -64,7 +64,7 @@
 ## 发布候选检查结果
 
 - 已采用 MIT License；顶层仓库和 npm package 均包含许可证，第三方来源与署名继续由 `THIRD_PARTY_NOTICES.md` 保留。
-- 当前专用适配名单已全部完成实机验证：Codex Desktop、Claude Code、Claude Desktop、ZCode、Kimi Desktop、Kimi Code CLI、Qoder CLI CN、Qoder CN Desktop、QoderWork CN、TRAE SOLO CN、Trae IDE、WorkBuddy Desktop、CodeBuddy CLI、OpenCode Desktop、Hermes Agent。
+- 当前专用适配名单已全部完成实机验证：Codex Desktop、Claude Code、Claude Desktop、ZCode、Kimi Desktop、Kimi Code CLI、Qoder CLI CN、Qoder CN Desktop、QoderWork CN、TRAE Work CN（原 TRAE SOLO CN）、Trae IDE、WorkBuddy Desktop、CodeBuddy CLI、OpenCode Desktop、Hermes Agent。TRAE Work CN 的公开验证记录对应更名前的 `TRAE SOLO CN 3.3.83`，新版本需重新回归。
 - npm `pack --dry-run` 只包含 7 个必要文件；Node.js 22/macOS 已从生成的 `.tgz` 在全新临时项目完成安装、语法检查和 MCP initialize 握手。
 - `feishu_bitable_record` 已通过真实专用表的 `list → upsert(confirm_write=true) → list(filter)` 回归；没有执行删除、批量写入或字段建模，也没有把表格坐标写入仓库。
 - 已添加 Node.js 20/22 × Ubuntu/macOS/Windows 的 GitHub Actions；远端 CI 只能在创建仓库并上传后实际运行。

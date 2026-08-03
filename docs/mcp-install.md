@@ -44,7 +44,7 @@ node installers/render-config.mjs \
 - `claude-desktop`
 - `workbuddy`
 - `qoder`
-- `trae`
+- `trae`（Trae IDE 与 TRAE Work CN 共用生成器，配置入口独立）
 - `kimi`
 - `kimi-cli`
 - `opencode`
@@ -121,13 +121,15 @@ claude mcp add nengong_feishu -- \
 
 应以当前 Claude Desktop 进程的 `--user-data-dir` 和客户端开发者设置为准。合并前先备份，建议显式传入 `--node` 与 `--lark-cli`；修改后完全退出并重新打开 Claude Desktop，在新任务中确认工具真实存在。Claude Desktop `1.24012.9` 的 `3p / Cowork` 会话已在 macOS 完成实机只读复验。
 
-### WorkBuddy
+### WorkBuddy Desktop
 
 WorkBuddy Desktop 与它内置的 CodeBuddy CLI 是两个独立的 MCP 加载面。`codebuddy mcp add` 写入的用户配置可供 CLI 使用，但 WorkBuddy Desktop `5.3.8` 启动会话时使用 `--strict-mcp-config`，不会自动把这份 CLI 配置合并进 Desktop 工具集。因此，CLI 返回 `Connected` 不等于 WorkBuddy Desktop 已完成接入。
 
 WorkBuddy Desktop 应优先从客户端自己的“插件/连接器 → MCP 服务器 → 配置 MCP”入口导入 `--client workbuddy` 生成的标准 JSON，并在界面里显式启用。不要把手写 `~/.workbuddy/.mcp.json`、`~/.workbuddy/mcp.json` 或 `~/.codebuddy/.mcp.json` 视为 Desktop 接入成功；最终以 Desktop 界面状态和新会话工具集为准。
 
-若只需要给 CodeBuddy CLI 接入，且终端已经能找到 `codebuddy`（别名也可能是 `cbc`），可执行：
+### CodeBuddy CLI
+
+WorkBuddy Desktop 与 CodeBuddy CLI 是两个独立的 MCP 加载面。若只需要给 CodeBuddy CLI 接入，且终端已经能找到 `codebuddy`（别名也可能是 `cbc`），可执行：
 
 ```bash
 codebuddy mcp add nengong_feishu --scope user \
@@ -144,17 +146,17 @@ codebuddy mcp list
 codebuddy mcp get nengong_feishu
 ```
 
-两条命令确认 `Connected` 后，只能说明 CodeBuddy CLI 链路就绪。要验证 WorkBuddy Desktop，仍需通过 Desktop 的 MCP/连接器界面导入、启用，并在新会话调用 `feishu_setup`。
-
 CodeBuddy CLI `2.132.0` 已在 macOS 完成独立实机只读复验：当前会话真实发现 `feishu_setup` 与 `feishu_doc_read`，setup 返回 `ready`，测试文档回读三项断言全部通过。该结果与 WorkBuddy Desktop 的验证相互独立。
 
-### Qoder CN Desktop、QoderWork CN 与 Qoder CLI CN
+### Qoder CN Desktop
 
-`--client qoder` 输出标准 `mcpServers` JSON。Qoder CN Desktop、QoderWork CN 与 Qoder CLI 是三个独立加载面；桌面产品应通过当前客户端的图形界面导入，不要直接编辑 SQLite 或猜测内部配置文件。
+`--client qoder` 输出标准 `mcpServers` JSON。Qoder CN Desktop、QoderWork CN 与 Qoder CLI CN 是三个独立加载面；桌面产品应通过当前客户端的图形界面导入，不要直接编辑 SQLite 或猜测内部配置文件。
 
 Qoder CN Desktop（Qoder IDE）：打开“Qoder 设置 → MCP 服务 → 我的服务 → 添加”，粘贴生成的 JSON，保存并启用后，以连接图标和展开后的工具列表为准。此前 macOS 文档回归显示 10 个文档工具；当前 server 更新后应重新发现合同规定的 11 个工具。新建智能体会话后，`feishu_setup` 和 `feishu_doc_read` 的只读复验通过。此次复验输出未提供客户端版本号，因此不扩大到其他版本或操作系统。官方说明：<https://docs.qoder.com/user-guide/chat/model-context-protocol>。
 
-QoderWork CN：打开“Settings → Connectors & MCP”，手动添加自定义 MCP Server，粘贴同一份 JSON，并显式启用该集成。QoderWork 的集成默认处于未启用状态；仅把配置写进 `~/.qoderworkcn/mcp.json` 不等同于已在 QoderWork 连接器层注册。官方说明：<https://docs.qoder.com/qoderwork/connectors>。
+### QoderWork CN
+
+打开“Settings → Connectors & MCP”，手动添加自定义 MCP Server，粘贴同一份 JSON，并显式启用该集成。QoderWork 的集成默认处于未启用状态；仅把配置写进 `~/.qoderworkcn/mcp.json` 不等同于已在 QoderWork 连接器层注册。官方说明：<https://docs.qoder.com/qoderwork/connectors>。
 
 导入时建议显式传入用户已授权的 CLI：
 
@@ -166,7 +168,7 @@ node installers/render-config.mjs \
   --lark-cli /absolute/path/to/lark-cli
 ```
 
-只有 Qoder CN Desktop 或 QoderWork 设置页显示连接成功、工具列表真实出现，并且当前会话能调用 `feishu_setup`，才算完成接入。提示词中写出工具名称后模型尝试调用、但运行时返回 `Tool not found`，应视为未注册，不能算工具发现成功。
+只有对应客户端设置页显示连接成功、工具列表真实出现，并且当前会话能调用 `feishu_setup`，才算完成接入。提示词中写出工具名称后模型尝试调用、但运行时返回 `Tool not found`，应视为未注册，不能算工具发现成功。
 
 ### Qoder CLI CN
 
@@ -192,13 +194,15 @@ qoderclicn -w /absolute/path/to/nengong-feishu
 
 如果从 `~` 启动，项目级 `.qoder/settings.local.json` 不会加载，Connected 配置也不会出现在当前会话工具集。Qoder CLI CN `1.1.11` 已在 macOS 完成 setup 和文档只读回读实机验证；Qoder CN Desktop、QoderWork CN 与 Qoder CLI 仍是相互独立的加载面。
 
-### Trae IDE 与 TRAE SOLO CN
+### Trae IDE
 
-`--client trae` 输出两者都能使用的标准 `mcpServers` JSON，但 Trae IDE 与 TRAE SOLO CN 的配置相互独立。不要把旧版 Trae IDE 的 `~/.trae-cn/mcp.json` 当作 SOLO 的全局配置。
+`--client trae` 输出 Trae IDE 与 TRAE Work CN 都能使用的标准 `mcpServers` JSON，但两个客户端的配置相互独立。不要把旧版 Trae IDE 的 `~/.trae-cn/mcp.json` 当作 TRAE Work 的全局配置。
 
 Trae IDE：打开项目后，在 Agent 面板的设置中进入“MCP”，打开“启用项目级 MCP”，再通过“添加 → 手动添加”导入生成的 JSON；也可以让客户端从项目根目录的 `.trae/mcp.json` 加载。此前文档回归使用 10 个工具；当前 server 更新后应看到 11 个工具，再在新的 Agent 会话中调用 `feishu_setup` 与 `feishu_doc_read`。当前 macOS 会话已完成只读复验；客户端版本未确认，模型名称不能当作客户端版本。官方说明：<https://docs.trae.ai/ide/add-mcp-servers>。
 
-TRAE SOLO CN 在 macOS 的全局配置位置为：
+### TRAE Work CN（原 TRAE SOLO CN）
+
+TRAE Work CN（旧版客户端目录仍可能使用 `TRAE SOLO CN`）在 macOS 的全局配置位置为：
 
 ```text
 ~/Library/Application Support/TRAE SOLO CN/User/mcp.json
@@ -210,9 +214,9 @@ TRAE SOLO CN 在 macOS 的全局配置位置为：
 .trae/mcp.json
 ```
 
-优先在 SOLO 的“设置 → MCP”导入生成的 JSON，由客户端写入正确位置。导入后确认服务器已启用，并使用本地 CODE 模式的新会话验证；云端任务或部分 MTC/SOLO 模式可能不会把自定义 MCP 工具注入模型工具集。配置显示已连接但模型仍看不到工具时，应报告客户端模式限制，不能用独立启动 server 的结果冒充客户端调用成功。
+优先在 TRAE Work 的“设置 → MCP”导入生成的 JSON，由客户端写入正确位置。导入后确认服务器已启用，并使用本地 CODE 模式的新会话验证；云端任务或部分 Work 模式可能不会把自定义 MCP 工具注入模型工具集。配置显示已连接但模型仍看不到工具时，应报告客户端模式限制，不能用独立启动 server 的结果冒充客户端调用成功。TRAE 官方已将 TRAE SOLO 更名为 TRAE Work，参见 <https://www.trae.ai/blog/trae_work_0609>。
 
-TRAE SOLO CN `3.3.83` 会错误拆分 `command` 中带空格的可执行文件路径。例如内置 Node 位于 `Application Support` 下时，会只尝试启动空格前的片段并返回 `ENOENT`。此时用 `--node` 显式指定一个不含空格的 Node 绝对路径：
+历史客户端 `TRAE SOLO CN 3.3.83` 会错误拆分 `command` 中带空格的可执行文件路径。例如内置 Node 位于 `Application Support` 下时，会只尝试启动空格前的片段并返回 `ENOENT`。此时用 `--node` 显式指定一个不含空格的 Node 绝对路径：
 
 ```bash
 node installers/render-config.mjs \

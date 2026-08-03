@@ -7,6 +7,8 @@
 
 “已实机验证”只代表下表注明的客户端版本、加载模式和 macOS 环境，不等于对该产品所有版本、账号模式或操作系统做了永久兼容承诺。每个客户端最终都必须满足：工具真实出现、`feishu_setup` 返回 `ready=true`，并且只读回读测试文档成功。
 
+本表按独立的 MCP 加载面列行：同一品牌的桌面端、CLI、IDE 或工作台即使共享配置格式，也不合并验证结论。`TRAE Work CN` 是 TRAE 官方把 `TRAE SOLO` 更名后的现行名称；历史验证记录仍保留旧产品名和版本信息。
+
 说明：下表中的历史工具数量来自多维表格能力加入前的文档回归，记录的是当时发现的 10 个文档工具。当前合同已增加第 11 个工具 `feishu_bitable_record`，并已在独立 stdio MCP 进程完成多维表格读写冒烟。它属于 server 层能力：只要客户端能正常加载该 MCP、用户通过官方 `lark-cli` 完成授权并拥有目标表权限，就不需要为每个客户端重复做真实写入认证；客户端更新后需要重新加载，才能发现新增工具。
 
 ## 已实机验证
@@ -22,7 +24,7 @@
 | Qoder CLI CN | ✅ 已验证 | 官方 CLI 注册 | `qoderclicn mcp add --scope local`，用 `qoderclicn mcp list` 检查 | macOS；`1.1.11`；从项目目录启动后 setup + 文档回读通过 |
 | Qoder CN Desktop | ✅ 已验证 | GUI MCP 管理器 | `Qoder 设置 → MCP 服务 → 我的服务 → 添加`，保存后启用 | macOS；当前复验未提供客户端版本；历史文档回归显示 10 个工具，setup + 文档回读通过 |
 | QoderWork CN | ✅ 已验证 | GUI 连接器导入 | `Settings → Connectors & MCP`，导入 `mcpServers` JSON | macOS；`0.6.3`；工具通过 lazy-loading 通道调用 |
-| TRAE SOLO CN | ✅ 已验证 | GUI MCP 导入 | SOLO 的“设置 → MCP”，或其 `mcp.json` 配置层 | macOS；`3.3.83`；Node 路径不能含空格 |
+| TRAE Work CN（原 TRAE SOLO CN） | ✅ 已验证（原 SOLO） | GUI MCP 导入 | TRAE Work 的 MCP 设置，或旧版 `mcp.json` 配置层 | macOS；历史验证版本 `TRAE SOLO CN 3.3.83`；Node 路径不能含空格；新版本需重新验证 |
 | Trae IDE | ✅ 已验证 | GUI MCP 导入 | Agent 面板设置 → MCP；项目级 `.trae/mcp.json` 导入开关 | macOS；客户端版本未确认；模型名不作为版本；历史文档回归显示 10 个工具，setup + 文档回读通过 |
 | WorkBuddy Desktop | ✅ 已验证 | GUI 连接器导入 | Desktop 的“插件/连接器 → MCP 服务器” | macOS；`5.3.8`；不能用 CodeBuddy CLI 的 Connected 代替 Desktop 验证 |
 | CodeBuddy CLI | ✅ 已验证 | 官方 CLI 注册 | `codebuddy mcp add --scope user`，用 `codebuddy mcp list/get` 检查 | macOS；`2.132.0`；独立 CLI 会话真实 setup + 文档回读 |
@@ -50,7 +52,7 @@ node installers/render-config.mjs \
 
 ## 当前不承诺的相邻产品
 
-除表中已验证的客户端外，其他产品仍只享有标准 MCP stdio 接入，不自动获得专用适配承诺。Qoder CN Desktop、QoderWork CN、Qoder CLI CN、TRAE SOLO CN 与 Trae IDE 是相互独立的加载面，本表已分别记录各自的实机结果；不能用其中一个产品的连接结果替代另一个产品的认证。WorkBuddy Desktop 与 CodeBuddy CLI 也同样相互独立。
+除表中已验证的客户端外，其他产品仍只享有标准 MCP stdio 接入，不自动获得专用适配承诺。Qoder CN Desktop、QoderWork CN、Qoder CLI CN、TRAE Work CN（原 TRAE SOLO CN）与 Trae IDE 是相互独立的加载面，本表已分别记录各自的实机结果；不能用其中一个产品的连接结果替代另一个产品的认证。WorkBuddy Desktop 与 CodeBuddy CLI、Kimi Desktop 与 Kimi Code CLI、Claude Code 与 Claude Desktop 也同样相互独立。
 
 ## 接入方法的统一规则
 
